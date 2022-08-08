@@ -1,0 +1,19 @@
+<div class="mx-20 mb-10 flex items-end">
+  <h1 id="weather-temperature" class="font-medium text-9xl mr-5">
+    {{ currentWeather.temp.toFixed() }}°
+  </h1>
+  <span class="flex flex-col justify-center mr-5">
+    <h2 id="weather-city" class="font-semibold text-5xl mb-2 capitalize">
+      {{ currentWeather.city }}
+    </h2>
+    <h4 id="weather-date" class="text-base font-light">
+      {{ currentWeather.date }}
+    </h4>
+  </span>
+  <span class="flex flex-col items-center">
+    <img src="http://openweathermap.org/img/wn/{{ currentWeather.icon }}.png" />
+    <h4 id="weather-description" class="text-base font-light capitalize">
+      {{ currentWeather.description }}
+    </h4>
+  </span>
+</div>

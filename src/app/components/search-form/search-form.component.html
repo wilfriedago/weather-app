@@ -1,0 +1,60 @@
+<form class="flex w-full" id="search-form" (ngSubmit)="searchLocation()">
+  <div class="px-10 mt-8 w-5/6" id="search-area">
+    <input
+      type="search"
+      placeholder="Entrer le nom d'une ville..."
+      class="search-input"
+      name="location"
+      [(ngModel)]="location"
+      required
+    />
+    <!-- <p *ngIf="name.touched && name.invalid" class="alert alert-danger">
+      Some error in the form
+    </p> -->
+  </div>
+  <button id="search-btn" type="submit" class="search-btn">
+    <svg
+      *ngIf="!loading"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      id="search-icon"
+      class=""
+    >
+      <circle
+        cx="11.7666"
+        cy="11.7666"
+        r="8.98856"
+        stroke="#200E32"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M18.0183 18.4851L21.5423 22"
+        stroke="#200E32"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+    <svg
+      *ngIf="loading"
+      xmlns="http://www.w3.org/2000/svg"
+      role="status"
+      class="animate-spin"
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+    >
+      <g transform="translate(0)">
+        <path
+          d="M10,0A10.1,10.1,0,0,0,8.481.114.727.727,0,0,0,8.7,1.552,8.547,8.547,0,1,1,1.454,10c0-.992-.212-1.009-.212-1.009S0,8.032,0,10A10,10,0,1,0,10,0"
+          fill="#200e32"
+        />
+      </g>
+    </svg>
+  </button>
+</form>

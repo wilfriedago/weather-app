@@ -1,0 +1,31 @@
+{
+  "coord": { "lon": 2.4183, "lat": 6.3654 },
+  "weather": [
+    {
+      "id": 802,
+      "main": "Clouds",
+      "description": "partiellement nuageux",
+      "icon": "03d"
+    }
+  ],
+  "base": "stations",
+  "main": {
+    "temp": 26.24,
+    "feels_like": 298.68,
+    "temp_min": 298.24,
+    "temp_max": 298.24,
+    "pressure": 1011,
+    "humidity": 72,
+    "sea_level": 1011,
+    "grnd_level": 1010
+  },
+  "visibility": 10000,
+  "wind": { "speed": 6.51, "deg": 220, "gust": 6.7 },
+  "clouds": { "all": 37 },
+  "dt": 1659543147,
+  "sys": { "country": "BJ", "sunrise": 1659505494, "sunset": 1659550084 },
+  "timezone": 3600,
+  "id": 2394819,
+  "name": "Cotonou",
+  "cod": 200
+}
