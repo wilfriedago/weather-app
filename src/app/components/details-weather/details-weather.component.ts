@@ -22,12 +22,13 @@ export class DetailsWeatherComponent implements OnInit, OnChanges {
 
   constructor() {}
 
+  rotate(deg: number) {
+    return `rotate(${deg})`;
+  }
+
   ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
     this.detailsWeather = changes['detailsWeather'].currentValue;
-    document.getElementById(
-      'wind-direction'
-    )!.style.transform = `rotate(${this.detailsWeather.wind_deg})`;
   }
 }
