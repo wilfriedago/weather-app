@@ -59,7 +59,10 @@ export class AppComponent implements OnInit {
         current: {
           city: data.name as string,
           country: data.sys.country as string,
-          date: (data.dt as number) * 1000 + (data.timezone as number) * 1000,
+          date:
+            (data.dt as number) * 1000 +
+            (data.timezone as number) * 1000 -
+            3600 * 1000,
           temp: data.main.temp as number,
           icon: data.weather[0].icon as string,
           description: data.weather[0].description as string,
