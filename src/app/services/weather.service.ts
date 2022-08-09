@@ -1,22 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
-import { Config } from '../interfaces/Config';
 import { environment as env } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WeatherService {
-  // Localisation par défaut de l'application
-  _default: Config = {
-    city: 'Cotonou',
-    geolocation: {
-      lon: 0,
-      lat: 0,
-    },
-  };
-
   constructor(private http: HttpClient) {}
 
   /**
@@ -67,32 +57,30 @@ export class WeatherService {
    * Méthode pour récupérer les informations météo d'une ville
    * à partir de l'API Open Weather Maps.
    */
-  getWeather = (city: string = this._default.city): Observable<any> => {
-    // FIXME: This is the real code
-    // return this.http
-    //   .get(`${env.apiURL}&q=${city}&appid=${env.apiKey}`, {
-    //     observe: 'body',
-    //     responseType: 'json',
-    //   })
-    //   .pipe(catchError(this.handleError));
-
-    // This is just for local testing
+  getWeather = (city: string): Observable<any> => {
+    //! FIXME: This is the real code
     return this.http
-      .get(`assets/response-weather.json`, {
+      .get(`${env.weatherApiURL}&q=${city}&appid=${env.apiKey}`, {
         observe: 'body',
         responseType: 'json',
       })
       .pipe(catchError(this.handleError));
+
+    //! This is just for local testing
+    // return this.http
+    //   .get(`assets/response-weather.json`, {
+    //     observe: 'body',
+    //     responseType: 'json',
+    //   })
+    //   .pipe(catchError(this.handleError));
   };
 
   /**
    * Méthode pour récupérer les prévisions météo d'une position géographique
    * à partir de l'API Open Weather Maps.
    */
-  getForecast = (
-    location: { lon: number; lat: number } = this._default.geolocation
-  ): Observable<any> => {
-    // FIXME: This is the real code
+  getForecast = (location: { lon: number; lat: number }): Observable<any> => {
+    //! FIXME: This is the real code
     // return this.http
     //   .get(
     //     `${env.onecallApiURL}&lon=${location.lon}&lat=${location.lat}&appid=${env.apiKey}`,
@@ -103,7 +91,7 @@ export class WeatherService {
     //   )
     //   .pipe(catchError(this.handleError));
 
-    // This is just for local testing
+    //! This is just for local testing
     return this.http
       .get(`assets/response-forecast.json`, {
         observe: 'body',

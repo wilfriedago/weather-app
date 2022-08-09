@@ -13,35 +13,21 @@ import { WeatherService } from '../../services/weather.service';
   styleUrls: ['./current-weather.component.scss'],
 })
 export class CurrentWeatherComponent implements OnInit, OnChanges {
-  @Input() currentWeather: {
+  @Input() currentWeather!: {
     temp: number;
     city: string;
+    country: string;
     date: number;
     icon: string;
     description: string;
-  } = {
-    temp: 0,
-    city: '',
-    date: 0,
-    icon: '',
-    description: '',
   };
 
   static dt: number;
 
-  constructor() {
-    if (!localStorage.getItem('dt')) {
-      localStorage.setItem('dt', '0');
-    } else {
-      CurrentWeatherComponent.dt = parseInt(
-        localStorage.getItem('dt') as string
-      );
-    }
-  }
+  constructor() {}
 
-  updateDate(dt: number) {
-    document.getElementById('weather-date')!.innerHTML =
-      WeatherService.getDateString(new Date(dt));
+  displayDate(dt: number) {
+    return WeatherService.getDateString(new Date(dt));
   }
 
   /**
@@ -53,13 +39,7 @@ export class CurrentWeatherComponent implements OnInit, OnChanges {
       WeatherService.getDateString(new Date(CurrentWeatherComponent.dt));
   }
 
-  ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-    this.updateDate(this.currentWeather.date);
-    setInterval(this.liveDate, 60000);
-    localStorage.setItem('dt', this.currentWeather.date.toString());
-  }
+  ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
     this.currentWeather = changes['currentWeather'].currentValue;

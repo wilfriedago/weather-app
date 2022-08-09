@@ -1,6 +1,7 @@
 export interface WeatherData {
   current: {
     city: string;
+    country: string;
     date: number;
     temp: number;
     icon: string;

@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { WeatherService } from './services/weather.service';
 import { UiService } from './services/ui.service';
 import { WeatherData } from './interfaces/WeatherData';
+import { Config } from './interfaces/Config';
 
 @Component({
   selector: 'app-root',
@@ -13,9 +14,19 @@ export class AppComponent implements OnInit {
   bgImageURL!: string;
   loading!: boolean;
   subscription!: Subscription;
+  recentSearchList: string[];
+  // Localisation par défaut de l'application
+  _default: Config = {
+    city: 'Cotonou',
+    geolocation: {
+      lon: 0,
+      lat: 0,
+    },
+  };
   weatherData: WeatherData = {
     current: {
       city: '',
+      country: '',
       date: 0,
       temp: 0,
       icon: '',
@@ -37,51 +48,43 @@ export class AppComponent implements OnInit {
     this.subscription = this.uiService
       .onLoading()
       .subscribe((value) => (this.loading = value));
+    this.recentSearchList = this.uiService.loadStorage('recent-search') ?? [];
   }
 
   searchLocation(location: string) {
-    this.uiService.loadingActivity();
-    this.weatherService.getWeather(location).subscribe(
-      (data: any) =>
-        (this.weatherData = {
-          current: {
-            city: data.name as string,
-            date: (data.dt as number) * 1000,
-            temp: data.main.temp as number,
-            icon: data.weather[0].icon as string,
-            description: data.weather[0].description as string,
-          },
-          details: {
-            clouds: data.clouds.all as number,
-            humidity: data.main.humidity as number,
-            pressure: data.main.pressure as number,
-            wind_speed: data.wind.speed as number,
-            wind_deg: data.wind.deg as number,
-          },
-        })
-    );
-    this.uiService.loadingActivity();
+    this.uiService.startLoading();
+
+    this.weatherService.getWeather(location).subscribe((data: any) => {
+      this.weatherData = {
+        current: {
+          city: data.name as string,
+          country: data.sys.country as string,
+          date: (data.dt as number) * 1000 + (data.timezone as number) * 1000,
+          temp: data.main.temp as number,
+          icon: data.weather[0].icon as string,
+          description: data.weather[0].description as string,
+        },
+        details: {
+          clouds: data.clouds.all as number,
+          humidity: data.main.humidity as number,
+          pressure: data.main.pressure as number,
+          wind_speed: data.wind.speed as number,
+          wind_deg: data.wind.deg as number,
+        },
+      };
+
+      this.recentSearchList.unshift(this.weatherData.current.city);
+      this.recentSearchList = this.uiService.cleanArray(this.recentSearchList);
+      this.uiService.saveStorage(
+        'recent-search',
+        this.recentSearchList.toString()
+      );
+
+      this.uiService.stopLoading();
+    });
   }
 
   ngOnInit(): void {
-    this.weatherService.getWeather().subscribe(
-      (data: any) =>
-        (this.weatherData = {
-          current: {
-            city: data.name as string,
-            date: (data.dt as number) * 1000,
-            temp: data.main.temp as number,
-            icon: data.weather[0].icon as string,
-            description: data.weather[0].description as string,
-          },
-          details: {
-            clouds: data.clouds.all as number,
-            humidity: data.main.humidity as number,
-            pressure: data.main.pressure as number,
-            wind_speed: data.wind.speed as number,
-            wind_deg: data.wind.deg as number,
-          },
-        })
-    );
+    this.searchLocation(this._default.city);
   }
 }

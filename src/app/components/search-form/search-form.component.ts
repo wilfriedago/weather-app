@@ -27,6 +27,7 @@ export class SearchFormComponent implements OnInit {
     }
 
     this.searchLocationEvent.emit(this.location);
+    this.location = '';
   }
 
   /**

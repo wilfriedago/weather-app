@@ -5,9 +5,12 @@
   <span class="flex flex-col justify-center mr-5">
     <h2 id="weather-city" class="font-semibold text-5xl mb-2 capitalize">
       {{ currentWeather.city }}
+      <small class="capitalize font-normal text-xl">
+        {{ currentWeather.country }}
+      </small>
     </h2>
     <h4 id="weather-date" class="text-base font-light">
-      {{ currentWeather.date }}
+      {{ displayDate(currentWeather.date) }}
     </h4>
   </span>
   <span class="flex flex-col items-center">

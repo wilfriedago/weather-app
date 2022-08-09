@@ -19,7 +19,8 @@
       (searchLocationEvent)="searchLocation($event)"
     ></app-search-form>
     <app-recent-search
-      (searchLocationRecentEvent)="searchLocation($event)"
+      (searchRecentLocationEvent)="searchLocation($event)"
+      [recentSearchList]="recentSearchList"
     ></app-recent-search>
     <app-details-weather
       [detailsWeather]="weatherData.details"
@@ -28,7 +29,7 @@
   </section>
   <div
     *ngIf="loading"
-    class="absolute h-screen w-screen grid place-items-center backdrop-filter backdrop-blur-xl"
+    class="absolute h-screen w-screen bg-gray-900 bg-opacity-5 grid place-items-center backdrop-filter backdrop-blur-xl"
   >
     <p class="text-5xl animate-pulse">Récupération des informations météo...</p>
   </div>
