@@ -6,7 +6,7 @@ module.exports = {
   darkMode: 'class',
   theme: {
     fontFamily: {
-      sans: ['Apercu', ...defaultTheme.fontFamily.sans],
+      sans: ['Cabin', ...defaultTheme.fontFamily.sans],
     },
   },
   plugins: [],

@@ -1,20 +1,15 @@
 <div
-  class="flex bg-[url('assets/images/bg-light.jpg')] bg-no-repeat bg-cover w-full text-white h-screen"
+  class="flex flex-col lg:flex-row bg-[url('assets/images/bg-light.jpg')] bg-no-repeat bg-cover w-full text-white h-screen"
 >
   <section class="section-1">
     <div class="title flex mx-20 mt-10 items-center">
-      <h2 class="font-medium text-xl">Weather App made with</h2>
-      <img
-        width="40"
-        alt="Angular Logo"
-        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="
-      />
+      <h2 class="font-medium text-xl">the.weather</h2>
     </div>
     <app-current-weather
       [currentWeather]="weatherData.current"
     ></app-current-weather>
   </section>
-  <section class="section-2">
+  <section class="section-2 overflow-scroll overflow-x-hidden">
     <app-search-form
       (searchLocationEvent)="searchLocation($event)"
     ></app-search-form>
@@ -31,6 +26,6 @@
     *ngIf="loading"
     class="absolute h-screen w-screen bg-gray-900 bg-opacity-5 grid place-items-center backdrop-filter backdrop-blur-xl"
   >
-    <p class="text-5xl animate-pulse">Récupération des informations météo...</p>
+    <p class="text-5xl animate-pulse">Retrieving weather information...</p>
   </div>
 </div>

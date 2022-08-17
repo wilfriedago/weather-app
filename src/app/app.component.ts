@@ -15,7 +15,8 @@ export class AppComponent implements OnInit {
   loading!: boolean;
   subscription!: Subscription;
   recentSearchList: string[];
-  // Localisation par défaut de l'application
+
+  // Default location data information
   _default: Config = {
     city: 'Cotonou',
     geolocation: {
@@ -29,7 +30,7 @@ export class AppComponent implements OnInit {
       country: '',
       date: 0,
       temp: 0,
-      icon: '',
+      icon: '01d',
       description: '',
     },
     details: {
@@ -51,41 +52,44 @@ export class AppComponent implements OnInit {
     this.recentSearchList = this.uiService.loadStorage('recent-search') ?? [];
   }
 
+  updateRecentSearch(){
+    this.recentSearchList.unshift(this.weatherData.current.city);
+    this.recentSearchList = this.uiService.cleanArray(this.recentSearchList);
+    this.uiService.saveStorage('recent-search', this.recentSearchList.toString());
+  }
+
   searchLocation(location: string) {
     this.uiService.startLoading();
 
     this.weatherService.getWeather(location).subscribe((data: any) => {
-      this.weatherData = {
-        current: {
-          city: data.name as string,
-          country: data.sys.country as string,
-          date:
-            (data.dt as number) * 1000 +
-            (data.timezone as number) * 1000 -
-            3600 * 1000,
-          temp: data.main.temp as number,
-          icon: data.weather[0].icon as string,
-          description: data.weather[0].description as string,
-        },
-        details: {
-          clouds: data.clouds.all as number,
-          humidity: data.main.humidity as number,
-          pressure: data.main.pressure as number,
-          wind_speed: data.wind.speed as number,
-          wind_deg: data.wind.deg as number,
-        },
-      };
+      if (data.cod) {
+        this.weatherData = {
+          current: {
+            city: data.name as string,
+            country: data.sys.country as string,
+            date: data.dt * 1000 + data.timezone * 1000,
+            temp: data.main.temp as number,
+            icon: data.weather[0].icon as string,
+            description: data.weather[0].description as string,
+          },
+          details: {
+            clouds: data.clouds.all as number,
+            humidity: data.main.humidity as number,
+            pressure: data.main.pressure as number,
+            wind_speed: data.wind.speed as number,
+            wind_deg: data.wind.deg as number,
+          },
+        };
+      } else {
+        console.log(data);
+      }
 
-      this.recentSearchList.unshift(this.weatherData.current.city);
-      this.recentSearchList = this.uiService.cleanArray(this.recentSearchList);
-      this.uiService.saveStorage(
-        'recent-search',
-        this.recentSearchList.toString()
-      );
+      this.updateRecentSearch();
 
       this.uiService.stopLoading();
     });
   }
+
 
   ngOnInit(): void {
     this.searchLocation(this._default.city);

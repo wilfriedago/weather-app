@@ -2,7 +2,7 @@
   <div class="px-10 mt-8 w-5/6" id="search-area">
     <input
       type="search"
-      placeholder="Entrer le nom d'une ville..."
+      placeholder="Enter a city name..."
       class="search-input"
       name="location"
       [(ngModel)]="location"
@@ -12,7 +12,13 @@
       Some error in the form
     </p> -->
   </div>
-  <button id="search-btn" type="submit" class="search-btn">
+  <button
+    id="search-btn"
+    type="submit"
+    class="search-btn"
+    title="Rechercher la météo d'une ville"
+    aria-label="Cliquer pour lancer une recherche"
+  >
     <svg
       *ngIf="!loading"
       width="24"
