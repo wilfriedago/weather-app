@@ -37,10 +37,4 @@ export class UiService {
     if (array.length >= 5) array.pop(); // Keep array size to 4
     return array;
   };
-
-  updateRecentSearchList(newSearch: string, array: string[]) {
-    array.unshift(newSearch);
-    array = this.cleanArray(array);
-    this.saveStorage('recent-search', array.toString());
-  }
 }

@@ -9,12 +9,13 @@
         {{ currentWeather.country }}
       </small>
     </h2>
-    <h4 id="weather-date" class="text-base font-light">
-      {{ displayDate(currentWeather.date) }}
-    </h4>
+    <h3 id="weather-date" class="text-base font-light"></h3>
   </span>
   <span class="flex flex-col items-center">
-    <img src="http://openweathermap.org/img/wn/{{ currentWeather.icon }}.png" />
+    <img
+      src="https://openweathermap.org/img/wn/{{ currentWeather.icon }}.png"
+      alt="{{ currentWeather.description }}"
+    />
     <h4 id="weather-description" class="text-base font-light capitalize">
       {{ currentWeather.description }}
     </h4>

@@ -25,7 +25,6 @@ export class SearchFormComponent implements OnInit {
       alert("Veuillez entrer le nom d'une ville !");
       return;
     }
-
     this.searchLocationEvent.emit(this.location);
     this.location = '';
   }

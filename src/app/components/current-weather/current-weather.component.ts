@@ -26,22 +26,21 @@ export class CurrentWeatherComponent implements OnInit, OnChanges {
 
   constructor() {}
 
-  displayDate(dt: number) {
-    return WeatherService.getDateString(new Date(dt));
-  }
-
   /**
    * Méthode permettant d'afficher la date en temps réel dans le DOM
    */
   liveDate(): void {
-    CurrentWeatherComponent.dt += 60000;
     document.getElementById('weather-date')!.innerHTML =
       WeatherService.getDateString(new Date(CurrentWeatherComponent.dt));
+    CurrentWeatherComponent.dt += 60000;
   }
 
   ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
     this.currentWeather = changes['currentWeather'].currentValue;
+    CurrentWeatherComponent.dt = this.currentWeather.date;
+    this.liveDate();
+    setInterval(this.liveDate, 60000);
   }
 }
